@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K214110789</title>
+    <style>
+        label, table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,td {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee List</h1>
+    
+    <label for="titles">Chọn Title:</label>
+    <select id="titles" onchange="loadEmployees()">
+    </select>
+
+    <br><br>
+    
+    <table id="employeeTable">
+    </table>
+
+    <script>
+        function loadTitles() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var xmlDoc = this.responseXML;
+                    var titles = xmlDoc.getElementsByTagName("employee");
+                    var uniqueTitles = [];
+
+                    for (var i = 0; i < titles.length; i++) {
+                        var title = titles[i].getAttribute("title");
+                        if (!uniqueTitles.includes(title)) {
+                            uniqueTitles.push(title);
+                        }
+                    }
+
+                    // Populate the droplist with unique titles
+                    var select = document.getElementById("titles");
+                    for (var j = 0; j < uniqueTitles.length; j++) {
+                        var option = document.createElement("option");
+                        option.value = uniqueTitles[j];
+                        option.text = uniqueTitles[j];
+                        select.add(option);
+                    }
+                }
+            };
+            xhttp.open("GET", "dsnhanvien.xml", true);
+            xhttp.send();
+        }
+
+        // Function to load employees based on selected title
+        function loadEmployees() {
+            var selectedTitle = document.getElementById("titles").value;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var xmlDoc = this.responseXML;
+                    var employees = xmlDoc.getElementsByTagName("employee");
+
+                    var table = "<tr><th>Mã Employee</th><th>Tên Employee</th><th>Phone Employee</th></tr>";
+
+                    for (var i = 0; i < employees.length; i++) {
+                        var title = employees[i].getAttribute("title");
+                        if (title === selectedTitle) {
+                            var id = employees[i].getAttribute("id");
+                            var name = employees[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                            var phone = employees[i].getElementsByTagName("phone")[0].childNodes[0].nodeValue;
+
+                            table += "<tr><td>" + id + "</td><td>" + name + "</td><td>" + phone + "</td></tr>";
+                        }
+                    }
+
+                    document.getElementById("employeeTable").innerHTML = table;
+                }
+            };
+            xhttp.open("GET", "dsnhanvien.xml", true);
+            xhttp.send();
+        }
+
+        // Load titles when the page loads
+        window.onload = loadTitles;
+    </script>
+</body>
+</html>

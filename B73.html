@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K214110789</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #productTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #productTable th {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <label for="searchInput">Muốn tìm gì:</label>
+    <input type="text" id="searchInput" oninput="searchTable()">
+
+    <table border="1" id="productTable"></table>
+
+    <script>
+    var sanphams = [
+        {
+            ma: "sp1",
+            ten: "Cocacola",
+            gia: 15000
+        },
+        {
+            ma: "sp2",
+            ten: "Pepsi",
+            gia: 25000
+        },
+        {
+            ma: "sp3",
+            ten: "Sting",
+            gia: 17000
+        }
+    ];
+
+    var table = document.getElementById("productTable");
+
+    function populateTable() {
+        table.innerHTML = "<tr><th>Mã sản phẩm</th><th>Tên sản phẩm</th><th>Đơn giá</th></tr>";
+
+        for (var i = 0; i < sanphams.length; i++) {
+            var sanpham = sanphams[i];
+            
+            var rowHTML = "<tr>";
+            rowHTML += "<td>" + sanpham.ma + "</td>";
+            rowHTML += "<td>" + sanpham.ten + "</td>";
+            rowHTML += "<td>" + sanpham.gia + "</td>";
+            rowHTML += "</tr>";
+
+            table.innerHTML += rowHTML;
+        }
+    }
+
+    function searchTable() {
+        var input = document.getElementById("searchInput").value.toLowerCase();
+        var rows = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var found = false;
+
+            for (var j = 0; j < cells.length; j++) {
+                var cellValue = cells[j].textContent.toLowerCase();
+                if (cellValue.includes(input)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                rows[i].classList.remove("hidden");
+            } else {
+                rows[i].classList.add("hidden");
+            }
+        }
+    }
+    populateTable();
+    </script>
+
+</body>
+</html>

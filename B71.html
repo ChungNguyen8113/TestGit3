@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K214110789</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <td id="userId"></td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td id="firstName"></td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td id="lastName"></td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td id="gender"></td>
+        </tr>
+        <tr>
+            <th>Link</th>
+            <td id="link"></td>
+        </tr>
+        <tr>
+            <th>Locale</th>
+            <td id="locale"></td>
+        </tr>
+        <tr>
+            <th>Birthday</th>
+            <td id="birthday"></td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td id="username"></td>
+        </tr>
+    </table>
+
+    <script>
+        var user = {
+            "id": "100005823642721",
+            "first_name": "Duy Thanh",
+            "gender": "male",
+            "last_name": "Trần",
+            "link": "https://www.facebook.com/duythanhcse",
+            "locale": "en_US",
+            "birthday": "20/12/1961",
+            "name": "Duy Thanh Trần",
+            "username": "duythanhcse"
+        };
+
+        document.getElementById("userId").innerText = user.id;
+        document.getElementById("firstName").innerText = user.first_name;
+        document.getElementById("lastName").innerText = user.last_name;
+        document.getElementById("gender").innerText = user.gender;
+        document.getElementById("link").innerHTML = '<a href="' + user.link + '" target="_blank">' + user.link + '</a>';
+        document.getElementById("locale").innerText = user.locale;
+        document.getElementById("birthday").innerText = user.birthday;
+        document.getElementById("username").innerText = user.username;
+    </script>
+
+</body>
+</html>
